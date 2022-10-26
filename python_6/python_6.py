@@ -32,7 +32,7 @@ def print_work_6():
     data_1.drop_duplicates(inplace=True)
     print(f"-----------Размер после удаления данных = {len(data_1)}")
 
-    print_6()
+    print_7()
 
 
 def print_5():
