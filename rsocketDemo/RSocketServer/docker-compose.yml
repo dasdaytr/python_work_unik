@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    restart: always
+    env_file:
+      - ./data/database.env
+    volumes:
+      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
+
