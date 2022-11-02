@@ -12,8 +12,8 @@ file_location_bitcoin = location / 'bitcoin.csv'
 
 def print_work_7():
     # print_1_2()
-    # print_3_11()
-    print13_16()
+    print_3_11()
+    #print13_16()
 
 
 def print_1_2():
@@ -45,25 +45,21 @@ def print_3_11():
     data['predict'] = data['close'].shift(-14)
     data = data[:14]
 
-    data_x = data['volumefrom']
-    data_y = data['predict']
+    data_x = data[['close']]
+    data_y = data[['predict']]
 
-    n = np.size(data_x)
+    regression = lm.LinearRegression()
 
-    m_close = np.mean(data_x)
-    m_predict = np.mean(data_y)
-    Ss_closePredict = np.sum(data_x * data_y) - n * m_close * m_predict
-    Ss_closeClose = np.sum(data_x * data_y) - n * m_close * m_close
+    regression.fit(data_x, data_y)
 
-    b_1 = Ss_closePredict / Ss_closeClose
-    b_0 = m_predict - b_1 * m_close
+    print(f"Наклон линии регрессии -->{regression.coef_}")
+    print(f"y-перехвата ---> {regression.intercept_}")
+    print(f"Точность прознозируемой цены закрытия --> {regression.score(data_x,data_y)}")
+    print(f"Предсказание стоймости крипты за последение 14 дней ---> {regression.predict(data[['close']][-14:])}")
 
-    print("Коэффиценты: ", "b_1 = ", b_1, ' b_0 = ', b_0)
     plt.scatter(data_x, data_y, color='m', marker='o', s=30)
 
-    y_pred = b_0 + b_1 * data_x
-
-    plt.plot(data_x, y_pred, color='g')
+    plt.plot(data_x, regression.predict(data_x), color='g')
 
     plt.xlabel('x')
     plt.ylabel('y')
@@ -86,23 +82,17 @@ def print13_16():
     m_x = np.mean(data_x)
     m_y = np.mean(data_y)
     Ss_closePredict = np.sum(data_y * data_x) - n * m_x * m_y
-    Ss_closeClose = np.sum(data_x * data_y) - n * m_x * m_x
+    Ss_closeClose = np.sum(data_x * data_x) - n * m_x * m_x
 
     b_1 = Ss_closePredict / Ss_closeClose
     b_0 = m_y - b_1 * m_x
-
-    scaler = StandardScaler()
-    print(scaler.fit_transform(data_x.values[Ellipsis, None]))
 
     plt.scatter(x=data_x, y=data_y, color='m', marker='o', alpha=0.3)
 
     y_pred = b_0 + b_1 * data_x
 
-    regresiion = lm.LinearRegression()
-    regresiion.fit(scaler.fit_transform(data_x.values[Ellipsis, None]),
-                   scaler.fit_transform(data_y.values[Ellipsis, None]))
-
-    plt.plot(data_x, regresiion.predict(data_x), color='g')
+    print(f"y-перехвата={y_pred}")
+    plt.plot(data_x, y_pred, color='g')
 
     plt.xlabel('x')
     plt.ylabel('y')
