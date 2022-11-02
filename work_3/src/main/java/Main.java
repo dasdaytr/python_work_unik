@@ -29,61 +29,61 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private  static ArrayBlockingQueue<Pair<File,Integer>> queue = new ArrayBlockingQueue<>(5);
     public static void main(String[] args) throws InterruptedException {
-        Observable<Integer> observableTemperature = Observable.interval(1, TimeUnit.SECONDS)
-                .flatMap(getF(15,30));
-
-        Observable<Integer> observableCo2 = Observable.interval(1, TimeUnit.SECONDS)
-                .flatMap(getF(30,100));
-
-
-        TemperatureObserver temperatureObserver = new TemperatureObserver();
-        CO2Observer co2Observer = new CO2Observer();
-
-        observableTemperature.subscribe(temperatureObserver);
-        observableCo2.subscribe(co2Observer);
+//        Observable<Integer> observableTemperature = Observable.interval(1, TimeUnit.SECONDS)
+//                .flatMap(getF(15,30));
+//
+//        Observable<Integer> observableCo2 = Observable.interval(1, TimeUnit.SECONDS)
+//                .flatMap(getF(30,100));
+//
+//
+//        TemperatureObserver temperatureObserver = new TemperatureObserver();
+//        CO2Observer co2Observer = new CO2Observer();
+//
+//        observableTemperature.subscribe(temperatureObserver);
+//        observableCo2.subscribe(co2Observer);
         /////1---задание
 
 
 
         ///2.1.2<-----
-        Observable.range(0,1000)
-                        .map(x->ThreadLocalRandom.current().nextInt(0,1001))
-                        .filter(x->x > 500)
-                        .toList()
-                        .subscribe(System.out::println);
+//        Observable.range(0,1000)
+//                        .map(x->ThreadLocalRandom.current().nextInt(0,1001))
+//                        .filter(x->x > 500)
+//                        .toList()
+//                        .subscribe(System.out::println);
 
         //2.1.2---->
 
         //2.2.1<------
-        Random r = new Random();
-        Observable.range(0,1000).map(x->(char)(r.nextInt('Z' - 'A') + 'A'))
-                        .zipWith(Observable.range(0,1000).map(x->ThreadLocalRandom.current().nextInt(0,1001)), (x,y) -> x.toString() + y)
-                        .toList()
-                        .subscribe(System.out::println);
+//        Random r = new Random();
+//        Observable.range(0,1000).map(x->(char)(r.nextInt('Z' - 'A') + 'A'))
+//                        .zipWith(Observable.range(0,1000).map(x->ThreadLocalRandom.current().nextInt(0,1001)), (x,y) -> x.toString() + y)
+//                        .toList()
+//                        .subscribe(System.out::println);
         //2.2.1------>
 
 
         //2.3.1<-----
 
-        Observable.range(0,10).map(x->ThreadLocalRandom.current().nextInt(0,1001))
-                .skip(3)
-                        .toList()
-                                .subscribe(System.out::println);
+//        Observable.range(0,10).map(x->ThreadLocalRandom.current().nextInt(0,1001))
+//                .skip(3)
+//                        .toList()
+//                                .subscribe(System.out::println);
 
         //2.3.1----->
 
         ///3
 
-        Integer[] arrUserId = new Integer[10];
-        for(int i = 0; i < arrUserId.length; i++)
-           arrUserId[i] = ThreadLocalRandom.current().nextInt(1,100);
-
-
-       Observable<Integer> userIdObservable = Observable.fromArray(arrUserId);
-
-       Observable<Observable<UserFriend>> test = userIdObservable.map(Main::getFriends);
-
-       test.subscribe(x->x.forEach(System.out::println));
+//        Integer[] arrUserId = new Integer[10];
+//        for(int i = 0; i < arrUserId.length; i++)
+//           arrUserId[i] = ThreadLocalRandom.current().nextInt(1,100);
+//
+//
+//       Observable<Integer> userIdObservable = Observable.fromArray(arrUserId);
+//
+//       Observable<Observable<UserFriend>> test = userIdObservable.map(Main::getFriends);
+//
+//       test.subscribe(x->x.forEach(System.out::println));
 
 
 
