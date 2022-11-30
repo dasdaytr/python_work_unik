@@ -1,0 +1,9 @@
+FROM openjdk:17
+ENV ARTIFACT_NAME=SpringBoot-0.0.8.jar
+ENV APP_HOME=/usr/app/test
+WORKDIR $APP_HOME
+COPY  service_docker/java_server $APP_HOME
+RUN mkdir "Files"
+ENV PORT_DB=5432
+ENV PORT=8004
+CMD ["java","-jar","SpringBoot-0.0.8.jar"]

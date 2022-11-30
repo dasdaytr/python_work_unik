@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  db:
+    build:
+      context: ./service_docker/postgres
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=test
+      - POSTGRES_PASSWORD=test
+    ports:
+      - "5432:5432"
+  app_proxy:
+    build:
+      context: .
+    ports:
+      - "8010:8010"
+  app1:
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    environment:
+      - ADDRESS=app1
+  app2:
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    environment:
+      - ADDRESS=app2
+  app3:
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    environment:
+      - ADDRESS=app3
+  app4:
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    environment:
+      - ADDRESS=app4
+  app5:
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    environment:
+      - ADDRESS=app5

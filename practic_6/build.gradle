@@ -1,0 +1,35 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.0'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'ru.mirea.practic_6'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+bootJar{
+	baseName = "SpringBoot"
+	version =  '0.0.7'
+	mainClass='ru.mirea.practic_6.practic_6.Practic6Application'
+	doLast {
+		copy {
+			from 'build/libs/SpringBoot-0.0.7.jar'
+			into 'service_docker/java_app'
+		}
+	}
+}
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    runtimeOnly 'org.postgresql:postgresql'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
